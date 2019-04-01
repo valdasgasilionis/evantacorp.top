@@ -9,4 +9,7 @@ class Macro extends Model
     protected $guarded = [
         'id'
     ];
+    public function requisition(){
+        return $this->belongsTo(Requisition::class);
+    }
 }
