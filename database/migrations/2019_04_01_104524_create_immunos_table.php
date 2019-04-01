@@ -15,6 +15,11 @@ class CreateImmunosTable extends Migration
     {
         Schema::create('immunos', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedinteger('requisition_id');
+            $table->unsignedinteger('technologist_id');
+            $table->unsignedinteger('slides')->nullable();
+            $table->string('description')->nullable();
+            $table->boolean('completed')->default(false);
             $table->timestamps();
         });
     }

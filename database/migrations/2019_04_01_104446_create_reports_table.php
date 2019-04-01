@@ -15,6 +15,12 @@ class CreateReportsTable extends Migration
     {
         Schema::create('reports', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedinteger('requisition_id');
+            $table->unsignedinteger('pathologist_id');
+            $table->text('micro')->nullable();
+            $table->text('conclusion')->nullable();
+            $table->text('note')->nullable();
+            $table->boolean('completed')->default(false);
             $table->timestamps();
         });
     }

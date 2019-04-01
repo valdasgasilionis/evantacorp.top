@@ -15,6 +15,10 @@ class CreateMacrosTable extends Migration
     {
         Schema::create('macros', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedinteger('requisition_id');
+            $table->unsignedinteger('technologis_id');
+            $table->text('macro')->nullable();
+            $table->boolean('completed')->default(false);
             $table->timestamps();
         });
     }

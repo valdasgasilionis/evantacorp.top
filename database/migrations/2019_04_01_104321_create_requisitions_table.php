@@ -15,6 +15,11 @@ class CreateRequisitionsTable extends Migration
     {
         Schema::create('requisitions', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedinteger('patient_id');
+            $table->unsignedinteger('clinician_id');
+            $table->string('procedure')->nullable();
+            $table->text('description')->nullable();
+            $table->boolean('completed')->default(false);
             $table->timestamps();
         });
     }
