@@ -1,11 +1,23 @@
 @extends('layouts.app')
 @section('body')
-<div class="container-fluid">
-    @if (auth()->check())
-    
-        <h2>your content appears here</h2>
-    @else
-        <h2>Welcome to EVANTACORP </h2>
-    @endif
-</div>
+{{-- main container bootstrap --}}
+    <main role="main" class="container">
+        <div class="starter-template text-center">
+            @if (auth()->check())    
+{{-- login view for 4 types of users --}}
+                @if (auth()->user()->isAdmin() | auth()->user()->isClinician())
+                    <h1>Clinician page</h1>
+                @endif
+                @if (auth()->user()->isAdmin() | auth()->user()->isPathologist())
+                    <h1>Pathologist page</h1> 
+                @endif
+                @if (auth()->user()->isAdmin() | auth()->user()->isTechnologist())
+                    <h1>Technologist page</h1>                   
+                @endif
+{{-- login for guest user --}}
+            @else
+                <h2>Welcome to EVANTACORP </h2>
+            @endif
+        </div>  
+    </main>
 @endsection
