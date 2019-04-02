@@ -6,7 +6,7 @@
             @if (auth()->check())    
 {{-- login view for 4 types of users --}}
                 @if (auth()->user()->isAdmin() | auth()->user()->isClinician())
-                    <h1>Clinician page</h1>
+                    <a href="/patients">List of Patients</a>
                 @endif
                 @if (auth()->user()->isAdmin() | auth()->user()->isPathologist())
                     <h1>Pathologist page</h1> 

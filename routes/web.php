@@ -18,3 +18,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('/patients','PatientController');
+Route::resource('/requisitions','RequisitionController');
+Route::resource('/reports','ReportController');
+Route::resource('/macros','MacroController');
+Route::resource('/histologies','HistologyController');
+Route::resource('/immunos','ImmunoController');

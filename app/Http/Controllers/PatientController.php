@@ -7,6 +7,17 @@ use Illuminate\Http\Request;
 
 class PatientController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+    }
+    protected function validateRequest(){
+        return
+            request()->validate([
+                'first_name' => 'required',
+                'last_name' => 'required',
+                'personal_number' => 'required'
+            ]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +25,8 @@ class PatientController extends Controller
      */
     public function index()
     {
-        //
+        $patients = Patient::all();
+        return view('patients.index',compact('patients'));
     }
 
     /**
@@ -35,7 +47,9 @@ class PatientController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request = $this->validateRequest();
+        $patient = Patient::create($request);
+        return redirect('/patients');
     }
 
     /**
