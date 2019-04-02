@@ -14,7 +14,7 @@ class MacroController extends Controller
      */
     public function index()
     {
-        //
+        return view('macros.index');
     }
 
     /**

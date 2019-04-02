@@ -25,3 +25,4 @@ Route::resource('/reports','ReportController');
 Route::resource('/macros','MacroController');
 Route::resource('/histologies','HistologyController');
 Route::resource('/immunos','ImmunoController');
+Route::get('/admin','AdminController@index');

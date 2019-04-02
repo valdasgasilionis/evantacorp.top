@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 
 class RequisitionController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +17,9 @@ class RequisitionController extends Controller
      */
     public function index()
     {
-        //
+        /* $requisitions = Requisition::where('clinician_id', auth()->id()); */
+        /* $requisitions = Requisition::where('clinician_id', auth()->id())->get();
+        return view('requisitions.index', compact('requisitions')); */
     }
 
     /**
@@ -35,7 +40,16 @@ class RequisitionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request = request(['patient_id','clinician_id']);
+        
+        $requisition = Requisition::create($request);
+
+        $requisitions = Requisition::where([            
+            ['patient_id', $requisition['patient_id']],
+            ['clinician_id', auth()->id()]
+        ])->get()->last();
+
+      return view('requisitions.index',compact('requisitions'));
     }
 
     /**

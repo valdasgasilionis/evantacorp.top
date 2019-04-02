@@ -8,7 +8,10 @@ class Requisition extends Model
 {
     protected $guarded = [];
     public function user(){
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'clinician_id');
+    }
+    public function patient(){
+        return $this->belongsTo(Patient::class);
     }
     public function report(){
         return $this->hasOne(Report::class);
