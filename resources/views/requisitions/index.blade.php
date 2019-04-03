@@ -14,6 +14,7 @@
                 <th scope="col">Requisition description</th>
                 <th scope="col">Report available?</th>
                 <th scope="col">Requisition updated on</th>
+                <th scope="col">Modify Requisition</th>
               </tr>
             </thead>
             <tbody>
@@ -30,6 +31,10 @@
                         <td>{{$requisition->description}}</td>
                         <td>{{$requisition->completed ? "yes" : "no"}}</td>
                         <td>{{$requisition->updated_at}}</td>
+                        <td><a href="/requisitions/{{$requisition->id}}/edit">
+                                <button type="submit" class="btn btn-primary">Modify Requisition</button>
+                            </a>
+                        </td>
                     </tr> 
                  @endforeach  
             </tbody>

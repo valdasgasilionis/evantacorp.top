@@ -14,19 +14,28 @@
             </div>
             <div class="text-center">Requisition created on {{$requisition->created_at}}</div>
                 <div class="container-fluid">
+ {{-- EDIT requisition --}}                   
                         <form action="/requisitions/{{$requisition->id}}" method="POST">
                             @method('PATCH')
                             @csrf
                             <div class="form-row">
-                              <div class="col">
-                                <input type="text" class="form-control" name="procedure" placeholder="Procedure">
-                              </div>
-                              <div class="col">
-                                <input type="text" class="form-control"  name="description" placeholder="Description">
-                              </div>
-                            <button type="submit" class="btn btn-primary">Submit corrections</button>
-                            </div>
+                                <div class="col">
+                                    <input type="text" class="form-control" name="procedure" value="{{$requisition->procedure}}" placeholder="Procedure">
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control"  name="description" value="{{$requisition->description}}" placeholder="Description">
+                                </div>
+                                    <button type="submit" class="btn btn-primary">Submit corrections</button>
                         </form> 
+{{-- DELETE requisition --}}
+                        <form action="/requisitions/{{$requisition->id}}" method="POST">
+                            @method('DELETE')
+                            @csrf
+                                <div class="col">
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </div>
+                        </form> 
+                            </div>
                 </div>
-              </div>
+            </div>
     @endsection

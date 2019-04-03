@@ -97,6 +97,7 @@ class RequisitionController extends Controller
      */
     public function destroy(Requisition $requisition)
     {
-        //
+        $requisition->delete();
+        return redirect('/requisitions');
     }
 }

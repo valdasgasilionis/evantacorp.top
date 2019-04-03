@@ -18,6 +18,18 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <style>
+        a {
+            text-decoration: none;
+            color:black;
+            font-size: 16px;
+            background-color:darkgray;
+            border-radius: 3px;
+            padding: 0 5px;
+            margin: 0 5px;
+        }
+    </style>
+
 </head>
 <body>
 {{-- bootstrap nav container --}}
@@ -43,9 +55,9 @@
                             @endif
                     @else
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <div class="container-fluid text-danger">
                                     {{ Auth::user()->name }} 
-                    </a>
+                    </div>
                 </li>
                 <li class="nav-item">                            
                     <a class="nav-link" href="{{ route('logout') }}"

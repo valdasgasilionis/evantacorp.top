@@ -1,7 +1,9 @@
 @extends('layouts.app')
     @section('body')
 {{-- form to create a new patient --}}
-<div class="jumbotron text-center text-uppercase text-danger bg-success">Create a new patient
+<div class="jumbotron text-center text-uppercase text-danger bg-success">
+  <div><a href="/requisitions">List of all Your REQUISITIONS</a></div>
+  <div>Create a new patient</div>
     <div class="container-fluid">
             <form action="/patients" method="POST">
                 @csrf
