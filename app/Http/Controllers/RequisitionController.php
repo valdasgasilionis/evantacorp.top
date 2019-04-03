@@ -17,9 +17,8 @@ class RequisitionController extends Controller
      */
     public function index()
     {
-        /* $requisitions = Requisition::where('clinician_id', auth()->id()); */
-        /* $requisitions = Requisition::where('clinician_id', auth()->id())->get();
-        return view('requisitions.index', compact('requisitions')); */
+        $requisitions = Requisition::orderBy('created_at', 'desc')->where('clinician_id', auth()->id())->get();
+        return view('requisitions.index', compact('requisitions')); 
     }
 
     /**
@@ -44,12 +43,12 @@ class RequisitionController extends Controller
         
         $requisition = Requisition::create($request);
 
-        $requisitions = Requisition::where([            
+       /*  $requisitions = Requisition::where([            
             ['patient_id', $requisition['patient_id']],
             ['clinician_id', auth()->id()]
-        ])->get()->last();
+        ])->get()->last(); */
 
-      return view('requisitions.index',compact('requisitions'));
+      return redirect('/requisitions/'.$requisition->id.'/edit');
     }
 
     /**
@@ -71,7 +70,8 @@ class RequisitionController extends Controller
      */
     public function edit(Requisition $requisition)
     {
-        //
+       /*  return $requisition; */
+        return view('requisitions.edit',compact('requisition'));
     }
 
     /**
@@ -83,7 +83,10 @@ class RequisitionController extends Controller
      */
     public function update(Request $request, Requisition $requisition)
     {
-        //
+        /* return $request; */
+        $requisition->update(request(['procedure','description']));
+
+        return redirect('/requisitions');
     }
 
     /**

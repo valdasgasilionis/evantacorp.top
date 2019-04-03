@@ -1,32 +1,37 @@
 @extends('layouts.app')
     @section('body')
-    <div class="jumbotron text-center text-uppercase text-danger bg-success">
-        <div class="text-center"><h2>Edit requisition<h2></div>
-        <div class="text-center">Requisition id number: {{$requisitions->id}}</div>
-        <div class="text-center">Patient id number: {{$requisitions->patient_id}}</div>
-        <div class="text-center">
-            Patient: {{$requisitions->patient->first_name}},
-                     {{$requisitions->patient->last_name}},
-                     {{$requisitions->patient->personal_number}}        
-        </div>
-        <div class="text-center">Clinician: Id number - {{$requisitions->clinician_id}}, name - 
-            {{$requisitions->user->name}}.        
-        </div>
-        <div class="text-center">Requisition created on {{$requisitions->created_at}}</div>
-            <div class="container-fluid">
-                    <form action="/requistions/{{$requisitions->id}}" method="POST">
-                        @method('PATCH')
-                        @csrf
-                        <div class="form-row">
-                          <div class="col">
-                            <input type="text" class="form-control" name="procedure" placeholder="Procedure">
-                          </div>
-                          <div class="col">
-                            <input type="text" class="form-control"  name="description" placeholder="Description">
-                          </div>
-                        <button type="submit" class="btn btn-primary">Submit corrections</button>
-                        </div>
-                    </form> 
-            </div>
-          </div>
+    <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Requisition ID</th>
+                <th scope="col">Patient ID</th>
+                <th scope="col">Patient name</th>
+                <th scope="col">Patient personal Number</th>
+                <th scope="col">Clinician ID</th>
+                <th scope="col">Clinician name</th>
+                <th scope="col">Requisition created on</th>
+                <th scope="col">Requisition title</th>
+                <th scope="col">Requisition description</th>
+                <th scope="col">Report available?</th>
+                <th scope="col">Requisition updated on</th>
+              </tr>
+            </thead>
+            <tbody>
+                @foreach ($requisitions as $requisition)       
+                    <tr>
+                        <th scope="row">{{$requisition->id}}</th>
+                        <td>{{$requisition->patient_id}}</td>
+                        <td>{{$requisition->patient->first_name}}, {{$requisition->patient->last_name}}</td>
+                        <td>{{$requisition->patient->personal_number}}</td>
+                        <td>{{$requisition->clinician_id}}</td>
+                        <td>{{$requisition->user->name}}</td>
+                        <td>{{$requisition->created_at}}</td>
+                        <td>{{$requisition->procedure}}</td>
+                        <td>{{$requisition->description}}</td>
+                        <td>{{$requisition->completed ? "yes" : "no"}}</td>
+                        <td>{{$requisition->updated_at}}</td>
+                    </tr> 
+                 @endforeach  
+            </tbody>
+          </table>
     @endsection
