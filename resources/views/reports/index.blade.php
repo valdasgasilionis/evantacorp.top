@@ -12,14 +12,14 @@
                 <th scope="col">Requisition created on</th>
                 <th scope="col">Requisition title</th>
                 <th scope="col">Requisition description</th>
-                <th scope="col">Report available?</th>
+                <th scope="col">Initialize report?</th>
                 <th scope="col">Requisition updated on</th>
-                <th scope="col">Modify Requisition</th>
-                <th scope="col">Case finalized?</th>
               </tr>
             </thead>
             <tbody>
-                @foreach ($requisitions as $requisition)       
+                @foreach ($requisitions as $requisition) 
+    {{-- only display requisitions that don't have patholgy report initiated --}} 
+    @if ($requisition->report === null)         
                     <tr>
                         <th scope="row">{{$requisition->id}}</th>
                         <td>{{$requisition->patient_id}}</td>
@@ -31,17 +31,22 @@
                         <td>{{$requisition->procedure}}</td>
                         <td>{{$requisition->description}}</td>
                         <td>
-                            @if ($requisition->report != null)
-                                yes
-                            @else
-                                no
-                            @endif                        
+                               <form action="/reports" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="requisition_id" value="{{$requisition->id}}">
+                                    <input type="hidden" name="pathologist_id" value="{{auth()->id()}}">
+                                    <div class="col">
+                                        <button type="submit" class="btn btn-primary" onchange="this.form.Submit()">
+                                            Create report
+                                        </button>
+                                    </div>
+                               </form>                    
                         </td>
                         <td>{{$requisition->updated_at}}</td>
-                        <td><a href="/requisitions/{{$requisition->id}}/edit" class="bg-success text-light">Modify</a></td>
-                        <td>{{$requisition->completed ? "yes" : "no"}}</td>
                     </tr> 
+        @endif             
                  @endforeach  
+                
             </tbody>
           </table>
     @endsection

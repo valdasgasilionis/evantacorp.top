@@ -25,7 +25,7 @@
             font-size: 16px;
             background-color:darkgray;
             border-radius: 3px;
-            padding: 0 5px;
+            padding: 0 15px;
             margin: 0 5px;
         }
     </style>
@@ -56,7 +56,7 @@
                     @else
                 <li class="nav-item">
                     <div class="container-fluid text-danger">
-                                    {{ Auth::user()->name }} 
+                                 <h5>   {{ Auth::user()->name }} </h5>
                     </div>
                 </li>
                 <li class="nav-item">                            

@@ -71,6 +71,7 @@ class RequisitionController extends Controller
     public function edit(Requisition $requisition)
     {
        /*  return $requisition; */
+       $this->authorize('view', $requisition);
         return view('requisitions.edit',compact('requisition'));
     }
 

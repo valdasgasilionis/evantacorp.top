@@ -3,10 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Report;
+use App\Requisition;
 use Illuminate\Http\Request;
 
 class ReportController extends Controller
 {
+    public $requisitions;
+
+    public function __costruct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +21,9 @@ class ReportController extends Controller
      */
     public function index()
     {
-        return view('home');
+       
+        $requisitions = Requisition::all();
+        return view('reports.index',compact('requisitions'));
     }
 
     /**
@@ -24,7 +33,8 @@ class ReportController extends Controller
      */
     public function create()
     {
-        //
+        
+
     }
 
     /**
@@ -35,7 +45,10 @@ class ReportController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->authorize('create', Report::class);
+        $request = request(['requisition_id','pathologist_id']);
+        $report = Report::create($request);
+        return redirect('reports/'.$report->id.'/edit');
     }
 
     /**
