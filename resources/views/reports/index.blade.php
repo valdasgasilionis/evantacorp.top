@@ -14,6 +14,7 @@
                 <th scope="col">Requisition description</th>
                 <th scope="col">Initialize report?</th>
                 <th scope="col">Requisition updated on</th>
+                <th scope="col">Report</th>
               </tr>
             </thead>
             <tbody>
@@ -43,6 +44,15 @@
                                </form>                    
                         </td>
                         <td>{{$requisition->updated_at}}</td>
+                        <td>
+                            @if ($requisition->report != null)                 
+                                <button type="submit" class="btn btn-primary">
+                                    <a href="/reports/{{$requisition->report->id}}/edit">
+                                        Report
+                                    </a>
+                                </button>
+                            @endif
+                        </td>
                     </tr> 
         @endif             
                  @endforeach  

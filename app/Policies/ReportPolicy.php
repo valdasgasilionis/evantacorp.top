@@ -44,7 +44,7 @@ class ReportPolicy
      */
     public function update(User $user, Report $report)
     {
-        
+        return $report->pathologist_id = $user->id;
     }
 
     /**

@@ -13,6 +13,7 @@
                 <th scope="col">Requisition title</th>
                 <th scope="col">Requisition description</th>
                 <th scope="col">Report available?</th>
+                <th scope="col">Report completed?</th>
                 <th scope="col">Requisition updated on</th>
                 <th scope="col">Modify Requisition</th>
                 <th scope="col">Case finalized?</th>
@@ -36,6 +37,22 @@
                             @else
                                 no
                             @endif                        
+                        </td>
+                        <td>
+                            @if ($requisition->report != null)
+                                @if ($requisition->report->completed === 1)
+                                   {{-- form to check requisition as updated --}}
+                                <form action="/requisitions/{{$requisition->id}}" method="POST">
+                                    @method('PATCH')
+                                    @csrf
+        <input type="checkbox" name="completed" {{$requisition->completed ? "checked" : ""}} onChange="this.form.submit()">
+                                </form>
+                                @else
+                                    incomplete  
+                                @endif   
+                            @else
+                                No
+                            @endif
                         </td>
                         <td>{{$requisition->updated_at}}</td>
                         <td><a href="/requisitions/{{$requisition->id}}/edit" class="bg-success text-light">Modify</a></td>

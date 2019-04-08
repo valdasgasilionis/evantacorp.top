@@ -86,6 +86,7 @@ class RequisitionController extends Controller
     {
         /* return $request; */
         $requisition->update(request(['procedure','description']));
+        $requisition->update(['completed' => request()->has('completed')]);
 
         return redirect('/requisitions');
     }

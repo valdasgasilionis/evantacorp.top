@@ -22,7 +22,7 @@ class ReportController extends Controller
     public function index()
     {
        
-        $requisitions = Requisition::all();
+        $requisitions = Requisition::orderBy('created_at', 'desc')->get();
         return view('reports.index',compact('requisitions'));
     }
 
@@ -33,8 +33,11 @@ class ReportController extends Controller
      */
     public function create()
     {
-        
+        $this->authorize('create', Report::class);
 
+        $reports = Report::orderBy('created_at', 'desc')->where('pathologist_id', auth()->id())->get();     
+
+        return view('reports.create', compact('reports'));
     }
 
     /**
@@ -70,7 +73,8 @@ class ReportController extends Controller
      */
     public function edit(Report $report)
     {
-        //
+        $this->authorize('update', $report);
+        return view('reports.edit', compact('report'));
     }
 
     /**
@@ -82,7 +86,17 @@ class ReportController extends Controller
      */
     public function update(Request $request, Report $report)
     {
-        //
+        $this->authorize('update', $report);
+        
+        $request = request([
+            'micro', 'conclusion', 'note'
+        ]);
+
+        $report->update($request);
+
+        $report->update(['completed' => request()->has('completed')]);
+
+        return redirect('/reports/create');
     }
 
     /**

@@ -36,6 +36,19 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
     <div class="container-fluid">
         <a class="navbar-brand" href="{{ url('/') }}">{{ config('app.name', 'Laravel') }}</a>
+{{-- link for logged clinicians --}}
+@if (auth()->check())
+     @if (auth()->user()->isClinician())
+        <a class="nav-link" href="/requisitions">List of all Your REQUISITIONS</a>
+    @endif 
+@endif   
+{{-- link for logged pathologists --}}  
+@if (auth()->check())
+     @if (auth()->user()->isPathologist())
+        <a class="nav-link" href="/reports">List of all REQUISITIONS</a>
+        <a class="nav-link" href="/reports/create">List of your Reports</a>
+    @endif 
+@endif     
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -95,6 +108,7 @@
        
         <main class="py-4">
             @yield('body')
+            @include('errors')
     </main>
         
     </div>
