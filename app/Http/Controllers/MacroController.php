@@ -3,10 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Macro;
+use App\Requisition;
 use Illuminate\Http\Request;
 
 class MacroController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +19,9 @@ class MacroController extends Controller
      */
     public function index()
     {
-        return view('macros.index');
+        $requisitions = Requisition::all();
+
+        return view('macros.index',compact('requisitions'));
     }
 
     /**
@@ -24,7 +31,9 @@ class MacroController extends Controller
      */
     public function create()
     {
-        //
+        $macros = Macro::where('technologis_id', auth()->id())->get();
+
+        return view('macros.create', compact('macros'));
     }
 
     /**
@@ -35,7 +44,10 @@ class MacroController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request = request(['technologis_id','requisition_id']);
+        $macro = Macro::create($request);
+
+        return back();
     }
 
     /**
@@ -44,9 +56,11 @@ class MacroController extends Controller
      * @param  \App\Macro  $macro
      * @return \Illuminate\Http\Response
      */
-    public function show(Macro $macro)
+    public function show()
     {
-        //
+        $macros = Macro::where('technologis_id', auth()->id())->get();
+
+        return view('macros.show', compact('macros'));
     }
 
     /**
@@ -57,7 +71,9 @@ class MacroController extends Controller
      */
     public function edit(Macro $macro)
     {
-        //
+        $this->authorize('update', $macro);
+
+        return view('macros.edit', compact('macro'));
     }
 
     /**
@@ -69,7 +85,12 @@ class MacroController extends Controller
      */
     public function update(Request $request, Macro $macro)
     {
-        //
+        $this->authorize('update', $macro);
+        $request = request(['macro']);
+        $macro->update(['completed' => request()->has('completed')]);
+        $macro->update($request);
+
+        return redirect('/macros/create');
     }
 
     /**
