@@ -1,3 +1,4 @@
+{{-- this page is almost identical to create.blade.php, except list only reports, that are marked as completed --}}
 @extends('layouts.app')
     @section('body')
     <table class="table table-striped">
@@ -12,9 +13,9 @@
               </tr>
             </thead>
             <tbody>
-{{-- only list reports that are not marked as completed --}}           
+{{--  only list reports that are marked as completed --}}           
                 @foreach ($reports as $report) 
-                     @if ($report->completed === 0)          
+                     @if ($report->completed === 1)          
                     <tr>
                         <td>{{$report->id}}</td>
                         <td>{{$report->micro}}</td>
@@ -36,7 +37,7 @@
                     </tr>
                     @endif 
                 @endforeach             
-{{-- end only list reports that are not marked as completed --}}  
+{{-- end only list reports that are marked as completed --}}  
             </tbody>
     </table>
     @endsection

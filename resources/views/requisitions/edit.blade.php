@@ -23,7 +23,7 @@
                                 <input type="text" class="form-control" name="procedure" value="{{$requisition->procedure}}" placeholder="Procedure">
                             </div>
                             <div class="form-row">
-                                <textarea class="form-control"  name="description" placeholder="Description">{{$requisition->description}}</textarea>
+                                <textarea class="container-fluid" class="form-control"  name="description" placeholder="Description">{{$requisition->description}}</textarea>
                             </div>
                             <div class="form-row">
                                 

@@ -23,7 +23,7 @@
             text-decoration: none;
             color:black;
             font-size: 16px;
-            background-color:darkgray;
+            background-color:cadetblue;
             border-radius: 3px;
             padding: 0 15px;
             margin: 0 5px;
@@ -46,9 +46,21 @@
 @if (auth()->check())
      @if (auth()->user()->isPathologist())
         <a class="nav-link" href="/reports">List of all REQUISITIONS</a>
-        <a class="nav-link" href="/reports/create">List of your Reports</a>
+        <a class="nav-link" href="/reports/create">List of your iNCOMPLE Reports</a>
+        <a class="nav-link" href="/reports/show">List of your COMPLETED Reports</a>
     @endif 
-@endif     
+@endif  
+{{-- link for logged technologists --}}  
+@if (auth()->check())
+    @if (auth()->user()->isTechnologist())
+        <a class="nav-link" href="/macros">Macros</a>   
+
+        <a class="nav-link" href="/histologies">Histology</a>
+        
+        <a class="nav-link" href="/immunos">Immuno</a>
+        
+    @endif 
+@endif
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>

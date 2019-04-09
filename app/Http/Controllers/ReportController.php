@@ -60,9 +60,13 @@ class ReportController extends Controller
      * @param  \App\Report  $report
      * @return \Illuminate\Http\Response
      */
-    public function show(Report $report)
+    public function show()
     {
-        //
+        $this->authorize('create', Report::class);
+
+        $reports = Report::orderBy('created_at', 'desc')->where('pathologist_id', auth()->id())->get();     
+
+        return view('reports.show', compact('reports'));
     }
 
     /**

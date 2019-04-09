@@ -60,7 +60,27 @@
                 <td>Requistion completed?</td>
                 <td>{{$report->requisition->completed ? 'yes' : 'no'}}</td>
             </tr>
-{{-- complete report --}}
+{{-- laboratory part of this report if initiated--}}
+    @if ($report->requisition->macro != null)   
+            <tr>
+                <td>Macro registration date</td>
+                <td>{{$report->requisition->macro->created_at}}</td>
+            </tr>
+            <tr>
+                <td>Macro technologist</td>
+                <td>{{$report->requisition->macro->technologist_id}}</td>
+            </tr>
+            <tr>
+                <td>Macro description</td>
+                <td>{{$report->requisition->macro->macro}}</td>
+            </tr>
+            <tr>
+                <td>Macro completed></td>
+                <td>{{$report->requisition->macro->completed ? "yes" : "no"}}</td>
+            </tr>
+    @endif        
+{{-- end laboratory part of this report --}}
+{{-- fill in pathology part of this report --}}
         <form action="/reports/{{$report->id}}" method="POST">
             @method('PATCH')
             @csrf
@@ -69,19 +89,19 @@
                     Micro description
                 </td>
                 <td>
-                    <textarea name="micro" placeholder="Micro description">{{$report->micro}}</textarea>
+                    <textarea class="container-fluid"  name="micro" placeholder="Micro description">{{$report->micro}}</textarea>
                 </td>
             </tr>
             <tr>
                 <td>Conclusion</td>
                 <td>
-                    <textarea name="conclusion" placeholder="Conclusion">{{$report->conclusion}}</textarea>
+                    <textarea class="container-fluid" name="conclusion" placeholder="Conclusion">{{$report->conclusion}}</textarea>
                 </td>
             </tr>
             <tr>
                 <td>Note</td>
                 <td>
-                    <textarea name="note" placeholder="Note">{{$report->note}}</textarea>
+                    <textarea class="container-fluid" name="note" placeholder="Note">{{$report->note}}</textarea>
                 </td>
             </tr>
             <tr>
@@ -97,7 +117,7 @@
                 </td>
             </tr>
         </form>
-{{-- end complete report --}}
+{{-- end fill in pathology part of the report --}}
         </tbody>
       </table>
     @endsection
