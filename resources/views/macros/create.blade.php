@@ -7,6 +7,9 @@
             <th scope="col">macro ID</th>
             <th scope="col">Macro created_at</th>
             <th scope="col">Requisition ID</th>
+            <th scope="col">Clinician</th>
+            <th scope="col">Procedure</th>
+            <th scope="col">Requisition description</th>
             <th scope="col">Macro description</th>
             <th scope="col">modify</th>
             <th scope="col">macro completed?</th>
@@ -20,6 +23,9 @@
                     <td>{{$macro->id}}</td>
                     <td>{{$macro->created_at}}</td>
                     <td>{{$macro->requisition->id}}</td>
+                    <td>{{$macro->requisition->user->name}}</td>
+                    <td>{{$macro->requisition->procedure}}</td>
+                    <td>{{$macro->requisition->description}}</td>
                     <td>{{$macro->macro}}</td>                    
                     <td>                      
                         <a href="/macros/{{$macro->id}}/edit">Modify</a>                   

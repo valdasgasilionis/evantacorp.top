@@ -30,7 +30,9 @@ class HistologyPolicy
      */
     public function create(User $user)
     {
-        //
+        if (auth()->user()->isTechnologist()) {
+            return true;
+        }
     }
 
     /**
@@ -42,7 +44,7 @@ class HistologyPolicy
      */
     public function update(User $user, Histology $histology)
     {
-        //
+        return $histology->technologist_id = $user->id;
     }
 
     /**

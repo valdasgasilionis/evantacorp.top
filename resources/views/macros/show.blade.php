@@ -9,7 +9,7 @@
             <th scope="col">Requisition ID</th>
             <th scope="col">Macro description</th>
             <th scope="col">modify</th>
-            <th scope="col">macro completed?</th>
+            {{-- <th scope="col">macro completed?</th> --}}
           </tr>
         </thead>
         <tbody>
@@ -23,15 +23,15 @@
                     <td>{{$macro->macro}}</td>                    
                     <td>                      
                         <a href="/macros/{{$macro->id}}/edit">Modify</a>                   
-                    <td>
+                  {{--   <td> --}}
     {{-- mark here as completed macro --}}
-                        <form action="/macros/{{$macro->id}}" method="POST">
+                      {{--   <form action="/macros/{{$macro->id}}" method="POST">
                             @method('PATCH')
                             @csrf
-<input type="checkbox" name="completed" {{$macro->completed ? 'checked' :''}} onChange="this.form.submit()">
-                        </form>
+<input type="checkbox" name="completed" {{$macro->completed ? 'checked' :''}} onClick="this.form.submit()">
+                        </form> --}}
     {{-- end mark macro as completed --}}
-                    </td>
+                   {{--  </td> --}}
                 </tr>
                 @endif 
             @endforeach             

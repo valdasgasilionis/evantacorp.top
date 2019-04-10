@@ -3,10 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Histology;
+use App\Requisition;
 use Illuminate\Http\Request;
 
 class HistologyController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +19,8 @@ class HistologyController extends Controller
      */
     public function index()
     {
-        //
+        $requisitions = Requisition::orderBy('created_at', 'desc')->get();
+        return view('histologies.index', compact('requisitions'));
     }
 
     /**
@@ -24,7 +30,9 @@ class HistologyController extends Controller
      */
     public function create()
     {
-        //
+        $histologies = Histology::where('technologist_id', auth()->id())->get();
+
+        return view('histologies.create', compact('histologies'));
     }
 
     /**
@@ -35,7 +43,11 @@ class HistologyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request = request(['requisition_id','technologist_id']);
+
+        $histology = Histology::create($request);
+        
+        return redirect('/histologies');
     }
 
     /**
@@ -44,9 +56,11 @@ class HistologyController extends Controller
      * @param  \App\Histology  $histology
      * @return \Illuminate\Http\Response
      */
-    public function show(Histology $histology)
+    public function show()
     {
-        //
+        $histologies = Histology::where('technologist_id', auth()->id())->get();
+
+        return view('histologies.show', compact('histologies'));
     }
 
     /**
@@ -57,7 +71,8 @@ class HistologyController extends Controller
      */
     public function edit(Histology $histology)
     {
-        //
+        $this->authorize('update', $histology);
+        return view('histologies.edit', compact('histology'));
     }
 
     /**
@@ -69,7 +84,10 @@ class HistologyController extends Controller
      */
     public function update(Request $request, Histology $histology)
     {
-        //
+        $request = request(['slides']);
+        $histology->update(['completed' => request()->has('completed')]);
+        $histology->update($request);
+        return redirect('/histologies/create');
     }
 
     /**
